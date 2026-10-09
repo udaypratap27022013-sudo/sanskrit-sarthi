@@ -17,7 +17,6 @@ async function main() {
       edition: row.edition, official_url: row.officialUrl, source_url: row.officialUrl,
       license_notes: row.licenseNotes, status: 'published'
     }).select().single(); book = result.data; if (result.error) throw result.error; }
-    if (bookError) throw bookError;
     const embedding = await embedText(row.content);
     const { error } = await supabase.from('textbook_chunks').insert({
       textbook_id: book.id, book_title: row.bookTitle, chapter: row.chapter, page: row.page, content: row.content, embedding
